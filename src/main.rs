@@ -17,7 +17,7 @@ fn main() {
     let args = Args::parse();
 
     if !args.image_path.is_empty() {
-        let decoded_image = image::DynamicImage::from_decoder(image::codecs::png::PngDecoder::new(Cursor::new(std::fs::read(&args.image_path).unwrap().as_slice())).unwrap()).unwrap();
+        let decoded_image = image::DynamicImage::from_decoder(image::codecs::png::PngDecoder::new(Cursor::new(std::fs::read(&args.image_path).expect(&format!("Could not read file at path: {}", args.image_path)).as_slice())).unwrap()).unwrap();
 
         let image_data = ImageData {
             width: decoded_image.width() as usize,
